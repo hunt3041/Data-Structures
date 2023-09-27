@@ -88,7 +88,7 @@ public class DoublyLinkedList<E> implements Iterable<E>{
     }
     private class SingleIterator implements Iterator<E> {
         private Node<E> current = header.getNext();
-        private 
+
         @Override
         public boolean hasNext() {
             if(current == trailer){
@@ -110,6 +110,5 @@ public class DoublyLinkedList<E> implements Iterable<E>{
                 return null;
             }
         }
-        
     }
 }
