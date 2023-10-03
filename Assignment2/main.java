@@ -17,10 +17,10 @@ public class Main {
         }
         else if(userInput.equals("2")){
           System.out.println("Enter the course number to delete: ");
-          String userInput2 = "CS 3363";
+          String userInput2 = scan.nextLine();
           // System.out.println(userInput);
           courseList = deleteCourse(courseList, userInput2);
-          System.out.println("First course: " + courseList.first().getCourseNumber());
+          
         }
         else{
           System.out.println("Enter another option");
@@ -30,19 +30,29 @@ public class Main {
     }
 
    
-    // NOT WORKING
     public static DoublyLinkedList<Course> deleteCourse(DoublyLinkedList<Course> courseList, String delCourse){
       Iterator<Course> itr = courseList.iterator();
+      String courseNum;
+      delCourse = delCourse.replaceAll("\\s","" );
       while(itr.hasNext()){
-        if(itr.next().getCourseNumber().equalsIgnoreCase(delCourse)){
-          itr.remove();
-          System.out.println("Course removed");
-          
+        courseNum = itr.next().getCourseNumber();
+        courseNum = courseNum.replaceAll("\\s", "");
+        if(courseNum.equalsIgnoreCase(delCourse)){
+          //itr.remove(); <------------------------------------IMPLEMENT
+          System.out.println("Course deleted");
         }
         
-      }
-      return courseList;
+      } 
+      
+       return courseList; 
+          
     }
+      
+
+      
+
+      
+    
     // First reads data into 2D array and then creates the doubly linked list for the courses 
     // and the singly linked list for the students
     // Does not sort
@@ -130,7 +140,6 @@ public class Main {
         textFileAsArray[k][j] = lineAsArray[j];
         
       } 
-
       k++;
     }
     br.close();

@@ -16,9 +16,14 @@ public class Course {
         
     }
 
+
+
     // Get the course name
     public String getCourseName(){return this.courseName;}
 
+    // Set a new course number
+    public void setCourseNumber(String courseNumber){this.courseNumber = courseNumber;}
+    
     // Get the course number
     public String getCourseNumber(){return this.courseNumber;}
 

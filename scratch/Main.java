@@ -3,7 +3,7 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) {
         // Create a new doubly linked list of strings
-        DoublyLinkedList<String> list = new DoublyLinkedList<>();
+        SinglyLinkedList<String> list = new SinglyLinkedList<>();
 
         // Add elements to the list
         list.addLast("apple");
@@ -14,9 +14,17 @@ public class Main {
 
         
         while(itr.hasNext()){
-            System.out.println(itr.next());
+            if(itr.next() == "banana"){
+                itr.remove();
+            }
         }
-        
+        Iterator<String> iter = list.iterator();
+        System.out.println("printing new list:");
+        while(iter.hasNext()){
+            System.out.println(iter.next());
+        }
     }
+        
 }
+
   

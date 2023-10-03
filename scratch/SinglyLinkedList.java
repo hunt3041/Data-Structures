@@ -61,6 +61,7 @@ public class SinglyLinkedList<E> implements Iterable<E>{
     }
     private class SingleIterator implements Iterator<E> {
         private Node<E> current = head;
+        private Node<E> previous = null; 
 
         @Override
         public boolean hasNext() {
@@ -75,15 +76,34 @@ public class SinglyLinkedList<E> implements Iterable<E>{
         @Override
         public E next() {
             if(current != null){
-                E temp = current.getElement();
+                previous = current; 
                 current = current.getNext();
-                return temp;
+                return previous.getElement();
             }
             else{
                 return null;
             }
         }
-           
+
+        @Override
+        public void remove(){
+            
+            if(previous == head){
+                head = current;
+            }
+            else{
+                current = head;
+                while(current.getNext() != previous){
+                    current = current.getNext();
+                } 
+                current.setNext(previous.getNext());
+                System.out.println("Element deleted");
+            }
         }
+
     }
+}
+           
+        
+    
 
