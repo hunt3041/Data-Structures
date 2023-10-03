@@ -38,11 +38,16 @@ public class Main {
         courseNum = itr.next().getCourseNumber();
         courseNum = courseNum.replaceAll("\\s", "");
         if(courseNum.equalsIgnoreCase(delCourse)){
-          //itr.remove(); <------------------------------------IMPLEMENT
+          itr.remove(); 
           System.out.println("Course deleted");
         }
-        
       } 
+      Iterator<Course> iter = courseList.iterator();
+      System.out.println("Printing new course list");
+      while(iter.hasNext()){
+        courseNum = iter.next().getCourseNumber();
+        System.out.println(courseNum);
+      }
       
        return courseList; 
           

@@ -110,6 +110,21 @@ public class DoublyLinkedList<E> implements Iterable<E>{
                 return null;
             }
         }
-        
+
+        @Override
+        public void remove(){
+            if(current == header){
+                header.setNext(current.getNext().getNext());
+                current = current.getNext().getNext();
+                current.setPrev(header);
+            }
+            else{
+                current.getPrev().getPrev().setNext(current);
+                current.setPrev(current.getPrev().getPrev());
+
+                
+            }
+        }   
+       
     }
 }
