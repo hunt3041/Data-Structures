@@ -31,6 +31,8 @@ public class DoublyLinkedList<E> implements Iterable<E>{
     }
     /*  Returns the number of elements in the linked list. */
     public int size( ) { return size; }
+    // Allow the iterator to decrement the size
+    protected void decrementSize(){this.size = this.size - 1;}
     //Tests whether the linked list is empty. 
     public boolean isEmpty( ) { return size == 0; }
     // Returns (but does not remove) the first element of the list. 
@@ -84,9 +86,9 @@ public class DoublyLinkedList<E> implements Iterable<E>{
 
     @Override
     public Iterator<E> iterator(){
-        return new SingleIterator();
+        return new DoubleIterator();
     }
-    private class SingleIterator implements Iterator<E> {
+    private class DoubleIterator implements Iterator<E> {
         private Node<E> current = header.getNext();
          
         @Override
@@ -113,6 +115,7 @@ public class DoublyLinkedList<E> implements Iterable<E>{
 
         @Override
         public void remove(){
+            decrementSize();
             if(current == header){
                 header.setNext(current.getNext().getNext());
                 current = current.getNext().getNext();

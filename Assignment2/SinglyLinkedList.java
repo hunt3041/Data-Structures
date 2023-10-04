@@ -20,6 +20,8 @@ public class SinglyLinkedList<E> implements Iterable<E>{
     public SinglyLinkedList( ) { } // constructs an initially empty list
     // access methods
     public int size( ) { return size; }
+    // Allow the iterator to decrement the size
+    protected void decrementSize(){this.size = this.size - 1;}
     public boolean isEmpty( ) { return size == 0; }
     public E first( ) { // returns (but does not remove) the first element
         if (isEmpty( )) return null;
@@ -87,7 +89,7 @@ public class SinglyLinkedList<E> implements Iterable<E>{
 
         @Override
         public void remove(){
-            
+            decrementSize();
             if(previous == head){
                 head = current;
             }

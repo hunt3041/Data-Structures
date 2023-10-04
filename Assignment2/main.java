@@ -14,6 +14,8 @@ public class Main {
         String userInput = scan.nextLine();
         if(userInput.equals("1")){
           courseList = readData();
+          courseList = deleteDuplicateCourses(courseList);
+          
         }
         else if(userInput.equals("2")){
           System.out.println("Enter the course number to delete: ");
@@ -34,6 +36,7 @@ public class Main {
       Iterator<Course> itr = courseList.iterator();
       String courseNum;
       delCourse = delCourse.replaceAll("\\s","" );
+      // deletes the specified course
       while(itr.hasNext()){
         courseNum = itr.next().getCourseNumber();
         courseNum = courseNum.replaceAll("\\s", "");
@@ -42,6 +45,7 @@ public class Main {
           System.out.println("Course deleted");
         }
       } 
+      // Prints the new course list
       Iterator<Course> iter = courseList.iterator();
       System.out.println("Printing new course list");
       while(iter.hasNext()){
@@ -87,7 +91,39 @@ public class Main {
         System.out.println("8.  Display the student list");
         System.out.println("9.  Exit");
     }
-    
+
+    // Deletes all duplicate courses and adds the students of each to a single list
+    // under a single course
+    public static DoublyLinkedList<Course> deleteDuplicateCourses(DoublyLinkedList<Course> courseList){
+      Iterator<Course> itr1 = courseList.iterator();
+      Iterator<Course> itr2 = courseList.iterator();
+      int counter;
+      while(itr1.hasNext()){
+        SinglyLinkedList<Student> studentList= new SinglyLinkedList<>();
+        Course course1 = new Course();
+        counter = 0;
+         course1 = itr1.next();
+        while(itr2.hasNext()){
+          Course course2 = new Course();
+          course2 = itr2.next();
+          if(course2.getCourseNumber().equals(course1.getCourseNumber())){
+            if(counter > 0){
+              studentList.addFirst(course2.getFirstStudent());
+              itr2.remove();
+              System.out.println("Duplicate course deleted");
+            }
+            
+            counter++;
+            
+          }
+        }
+        studentList.addLast(course1.getFirstStudent());
+        course1.addStudentList(studentList);
+      }
+      return courseList;
+    }
+
+
     // Sorts the courses using bubble sort
     public static void sortCourses(DoublyLinkedList<Course> courseList){
       
