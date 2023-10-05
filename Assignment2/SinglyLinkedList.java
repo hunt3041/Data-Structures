@@ -99,7 +99,7 @@ public class SinglyLinkedList<E> implements Iterable<E>{
                     current = current.getNext();
                 } 
                 current.setNext(previous.getNext());
-                System.out.println("Element deleted");
+                // System.out.println("Element deleted");
             }
         }
 

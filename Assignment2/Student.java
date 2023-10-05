@@ -5,7 +5,8 @@ public class Student {
     private String address;
 
     
-
+    //default constructor
+    public Student(){};
 
     public Student(String studentName, String studentID, String email, String address){
         this.studentName = studentName;
