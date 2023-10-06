@@ -101,6 +101,7 @@ public class Course {
     public void printStudentList(){
         Iterator<Student> itr = this.studentList.iterator();
         System.out.printf("%-15s %-25s %-25s %-40s%n", "Student's ID", "Student's Name", "Email", "Address");
+        System.out.println();
         while(itr.hasNext()){
             Student student = itr.next();
             System.out.printf("%-15s %-25s %-25s %-40s%n", student.getStudentID(), student.getStudentName(), student.getEmail(), student.getAddress());

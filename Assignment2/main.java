@@ -1,5 +1,13 @@
+/*
+ * Author Name: Hunter Green
+ * Email: hungree@okstate.edu
+ * Date: 10/6/23
+ * Program Description: Data Structures Assignment2. Implements a course-student information management program.
+ */
+
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.lang.reflect.Array;
 import java.util.Iterator;
@@ -17,11 +25,15 @@ public class Main {
         // Read the data OPTION 1
         if(userInput.equals("1")){
           option1 = true;
-          courseList = readData();
-          courseList = deleteDuplicateCourses(courseList);
-          courseList = sortCourses(courseList);
-          System.out.println("Input file read successfully");
-          summaryOfRecord(courseList);
+          System.out.print("Enter the filepath of input file: ");
+          String filePath = scan.nextLine();
+          courseList = readData(filePath);
+          if(courseList != null){
+            courseList = deleteDuplicateCourses(courseList);
+            courseList = sortCourses(courseList);
+            System.out.println("Input file read successfully");
+            summaryOfRecord(courseList);
+          }
           
         }
 
@@ -176,7 +188,13 @@ public class Main {
     
     }
 
-    // deletes a specified course from the linked list
+    /*
+     * Deletes a course from the course list
+     * 
+     * @param courseList: the doubly linked list that the course is being deleted from
+     * @param delCourse: the course that is to be deleted from the list
+     * @return courseList: the new list  
+     */
     public static DoublyLinkedList<Course> deleteCourse(DoublyLinkedList<Course> courseList, String delCourse){
       Iterator<Course> itr = courseList.iterator();
       String courseNum;
@@ -203,7 +221,11 @@ public class Main {
       
 
       
-    // print the summary of record after each command execution as described in the assignment sheet
+    /*
+     * Prints of summary of the record as described in the assignment
+     * 
+     * @param courseList: the course list that the summary is extracted from
+     */
     public static void summaryOfRecord(DoublyLinkedList<Course> courseList){
       System.out.println("Summary of the record: ");
       System.out.println("Number of courses registered: " + courseList.size());
@@ -215,17 +237,27 @@ public class Main {
       System.out.println("Number of total students: " + numStudents);
     }
     
-    // basically a function that calls other functions
-    // it reads the file from the the specified path <-----------------------------------------ADD PROMPT FOR USER TO SPECIFY PATH
-    public static DoublyLinkedList<Course> readData()throws Exception{
-      String fileName = "/Users/Hunter/Data Structures/Assignment2/inputFile.txt";
-      String[][] fileToArray = fileToArray(fileName); 
-      DoublyLinkedList<Course> courseList = new DoublyLinkedList<>(); 
-      courseList = createLists(fileToArray, courseList);
-      
-      return courseList;
+    /*
+     * Reads the data from the input file and stores it in the linked-list structure defined in the handout
+     * 
+     * @param filePath: the file path of the .txt file that is to be read
+     * @return courseList: list of courses now in the structure defined in the handout
+     */
+    public static DoublyLinkedList<Course> readData(String filePath)throws Exception{
+      try{
+        String[][] fileToArray = fileToArray(filePath); 
+        DoublyLinkedList<Course> courseList = new DoublyLinkedList<>(); 
+        courseList = createLists(fileToArray, courseList);
+        return courseList;
+      }
+      catch(FileNotFoundException e){
+        System.out.println("Could not find file, select option 1 again and try a different path");}
+        return null;
     }
-    // Prints the user option menu
+
+    /*
+     * Prints the option menu
+     */
     public static void printMenu(){
       System.out.println("Enter one of the following options: ");
         System.out.println("1.  Read the input data");
@@ -239,8 +271,12 @@ public class Main {
         System.out.println("9.  Exit");
     }
 
-    // Deletes all duplicate courses and adds the students of each to a single list
-    // under a single course
+    /*
+     * Deletes the duplicate courses that are created initially becuase of the way the .txt file must be read
+     * 
+     * @param courseList: the course list that the duplicates are deleted from 
+     * @return courseList: the new courselist with no duplicates
+     */
     public static DoublyLinkedList<Course> deleteDuplicateCourses(DoublyLinkedList<Course> courseList){
       Iterator<Course> itr1 = courseList.iterator();
       
@@ -271,8 +307,12 @@ public class Main {
     }
 
 
-    // Sorts the courses and students using bubble sort
-    // calls the function within course class to sort students
+    /*
+     * Sorts the courses and students by alphabetical order using insertion sort
+     * 
+     * @param courseList: the course list to sort the courese and students
+     * @return sortedList: the sorted list
+     */
     public static DoublyLinkedList<Course> sortCourses(DoublyLinkedList<Course> courseList){
       DoublyLinkedList<Course> sortedList = new DoublyLinkedList<>();
       Iterator<Course> itr = courseList.iterator();
@@ -308,7 +348,14 @@ public class Main {
 
     
     
-    // Creates the linked list structure from the 2D array
+    /*
+     * Creates the linked-list structure defined in the handout from the 2-D array that is produced in 
+     * another function
+     * 
+     * @param array: 2-D array containing all the data in the .txt file
+     * @param list: the list that we are adding new elements to
+     * @return list: the fully populated list 
+     */
     public static DoublyLinkedList<Course> createLists(String[][] array, DoublyLinkedList<Course> list){
       String courseNumber = null;
       String courseName = null;
@@ -341,10 +388,14 @@ public class Main {
 
 
 
-  // Stores the inputfile.txt into an array to be parsed and stored in the linked lists
-  // Is not dynamic array size must be changed to match .txt file
-  public static String[][] fileToArray(String fileName)throws Exception{
-    File file = new File(fileName);
+  /*
+   * Creates a 2-D array with the information in the .txt file
+   * 
+   * @param filePath: the file path to the inputFile.txt file
+   * @return textFileAsArray: the 2-D array containing the file contents
+   */
+  public static String[][] fileToArray(String filePath)throws Exception{
+    File file = new File(filePath);
     FileReader fr = new FileReader(file);
     BufferedReader br = new BufferedReader(fr);
     int k = 0;
