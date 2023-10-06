@@ -18,6 +18,7 @@ public class Course {
 
     }
 
+    // Constructor if all course information is known
     public Course(String courseNumber, String courseName, Student student){
         this.courseName = courseName;
         this.courseNumber = courseNumber;
@@ -52,7 +53,7 @@ public class Course {
         sortStudents();
     }
 
-    
+    // adds an entire new list to the course
     public void addStudentList(SinglyLinkedList<Student> studentList, int size){
         this.studentCount = studentList.size();
         this.studentList = studentList;
@@ -60,6 +61,7 @@ public class Course {
 
     // Sorts the student list by their first names as requested in the assignment
     //INSERTION/BUBBLE SORT
+    // must be called after a student insertion
     public void sortStudents(){
         SinglyLinkedList<Student> sortedList = new SinglyLinkedList<>();
         Iterator<Student> itr = this.studentList.iterator();
@@ -95,7 +97,7 @@ public class Course {
     }
     
     
-    // Prints the student list
+    // Prints the student list in format requested in assignment
     public void printStudentList(){
         Iterator<Student> itr = this.studentList.iterator();
         System.out.printf("%-15s %-25s %-25s %-40s%n", "Student's ID", "Student's Name", "Email", "Address");

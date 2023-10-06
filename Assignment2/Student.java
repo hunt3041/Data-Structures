@@ -8,6 +8,7 @@ public class Student {
     //default constructor
     public Student(){};
 
+    // Constructor for if values are known
     public Student(String studentName, String studentID, String email, String address){
         this.studentName = studentName;
         this.studentID = studentID;

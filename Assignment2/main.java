@@ -14,7 +14,7 @@ public class Main {
       while(true){
         String userInput = scan.nextLine();
 
-        // Read the data
+        // Read the data OPTION 1
         if(userInput.equals("1")){
           option1 = true;
           courseList = readData();
@@ -25,7 +25,7 @@ public class Main {
           
         }
 
-        // Delete a course
+        // Delete a course OPTION 2
         else if(userInput.equals("2") && option1){
           System.out.print("Enter the course number to delete: ");
           String userInput2 = scan.nextLine();
@@ -35,7 +35,7 @@ public class Main {
           
         }
 
-        // Insert a new course
+        // Insert a new course OPTION 3
         else if(userInput.equals("3") && option1){
           System.out.print("Enter the new course number to add: ");
           String newCourseNum = scan.nextLine();
@@ -48,7 +48,7 @@ public class Main {
           
         }
 
-        // Delete a student
+        // Delete a student OPTION 4
         else if(userInput.equals("4") && option1){
           System.out.print("Enter the student ID number to delete: ");
           String studentID = scan.nextLine();
@@ -67,7 +67,7 @@ public class Main {
           
         }
 
-        // Insert a new student
+        // Insert a new student OPTION 5
         else if(userInput.equals("5") && option1){
           System.out.print("Enter the course number the student wants to enroll to: ");
           String courseNum = scan.nextLine();
@@ -95,7 +95,7 @@ public class Main {
           
         }
         
-        // Transfer a student
+        // Transfer a student OPTION 6
         else if(userInput.equals("6")){
           System.out.print("Enter the student's name: ");
           String studentName = scan.nextLine();
@@ -133,7 +133,7 @@ public class Main {
           
         }
 
-        // Display the course list 
+        // Display the course list OPTION 7
         else if(userInput.equals("7") && option1){
           System.out.println("The list of courses registered are as follows: ");
           Iterator<Course> itr = courseList.iterator();
@@ -146,7 +146,7 @@ public class Main {
           
         }
 
-        // Display a student list
+        // Display a student list OPTION 8 
         else if(userInput.equals("8") && option1){
           System.out.print("Enter the course number: ");
           String courseNum = scan.nextLine().replaceAll("\\s","");
@@ -176,7 +176,7 @@ public class Main {
     
     }
 
-    
+    // deletes a specified course from the linked list
     public static DoublyLinkedList<Course> deleteCourse(DoublyLinkedList<Course> courseList, String delCourse){
       Iterator<Course> itr = courseList.iterator();
       String courseNum;
@@ -195,13 +195,7 @@ public class Main {
       if(!courseRemoved){
         System.out.println("Course not found");
       }
-      // Prints the new course list
-      // Iterator<Course> iter = courseList.iterator();
-      // System.out.println("Printing new course list");
-      // while(iter.hasNext()){
-      //   courseNum = iter.next().getCourseNumber();
-      //   System.out.println(courseNum);
-      // }
+      
       
        return courseList; 
           
@@ -209,7 +203,7 @@ public class Main {
       
 
       
-
+    // print the summary of record after each command execution as described in the assignment sheet
     public static void summaryOfRecord(DoublyLinkedList<Course> courseList){
       System.out.println("Summary of the record: ");
       System.out.println("Number of courses registered: " + courseList.size());
@@ -221,10 +215,8 @@ public class Main {
       System.out.println("Number of total students: " + numStudents);
     }
     
-    // First reads data into 2D array and then creates the doubly linked list for the courses 
-    // and the singly linked list for the students
-    // Does not sort
-    // does not delete duplicate courses
+    // basically a function that calls other functions
+    // it reads the file from the the specified path <-----------------------------------------ADD PROMPT FOR USER TO SPECIFY PATH
     public static DoublyLinkedList<Course> readData()throws Exception{
       String fileName = "/Users/Hunter/Data Structures/Assignment2/inputFile.txt";
       String[][] fileToArray = fileToArray(fileName); 
@@ -279,7 +271,7 @@ public class Main {
     }
 
 
-    // Sorts the courses using bubble sort
+    // Sorts the courses and students using bubble sort
     // calls the function within course class to sort students
     public static DoublyLinkedList<Course> sortCourses(DoublyLinkedList<Course> courseList){
       DoublyLinkedList<Course> sortedList = new DoublyLinkedList<>();
@@ -350,6 +342,7 @@ public class Main {
 
 
   // Stores the inputfile.txt into an array to be parsed and stored in the linked lists
+  // Is not dynamic array size must be changed to match .txt file
   public static String[][] fileToArray(String fileName)throws Exception{
     File file = new File(fileName);
     FileReader fr = new FileReader(file);

@@ -17,28 +17,44 @@ public class SinglyLinkedList<E> implements Iterable<E>{
     private Node<E> head = null; // head node of the list (or null if empty)
     private Node<E> tail = null; // last node of the list (or null if empty)
     private int size = 0; // number of nodes in the list
+
+    // default constructor
     public SinglyLinkedList( ) { } // constructs an initially empty list
+
     // access methods
     public int size( ) { return size; }
+
     // Allow the iterator to decrement the size
+    // Do not think it is ever actually used
     protected void decrementSize(){this.size = this.size - 1;}
+
+    // Indicates if the linked list is empty
     public boolean isEmpty( ) { return size == 0; }
-    public E first( ) { // returns (but does not remove) the first element
+
+    // returns (but does not remove) the first element
+    public E first( ) { 
         if (isEmpty( )) return null;
         return head.getElement( );
     }
-    public E last( ) { // returns (but does not remove) the last element
+
+    // returns (but does not remove) the last element
+    public E last( ) { 
         if (isEmpty( )) return null;
         return tail.getElement( );
     }
-    // update methods
-    public void addFirst(E e) { // adds element e to the front of the list
+
+    // UPDATE METHODS
+
+    // adds element e to the front of the list
+    public void addFirst(E e) { 
         head = new Node<>(e, head); // create and link a new node
         if (size == 0)
             tail = head; // special case: new node becomes tail also
         size++;
     }
-    public void addLast(E e) { // adds element e to the end of the list
+
+    // adds element e to the end of the list
+    public void addLast(E e) { 
         Node<E> newest = new Node<>(e, null); // node will eventually be the tail
         if (isEmpty( ))
             head = newest; // special case: previously empty list
@@ -47,7 +63,9 @@ public class SinglyLinkedList<E> implements Iterable<E>{
         tail = newest; // new node becomes the tail
         size++;
     }
-    public E removeFirst( ) { // removes and returns the first element
+
+    // removes and returns the first element
+    public E removeFirst( ) { 
         if (isEmpty( )) return null; // nothing to remove
         E answer = head.getElement( );
         head = head.getNext( ); // will become null if list had only one node
@@ -57,14 +75,20 @@ public class SinglyLinkedList<E> implements Iterable<E>{
         return answer;
     }
 
+    // creates a new iterator object to iterate through the linked list
     @Override
     public Iterator<E> iterator(){
         return new SingleIterator();
     }
+
+    // ITERATOR CLASS
     private class SingleIterator implements Iterator<E> {
         private Node<E> current = head;
         private Node<E> previous = null; 
 
+
+        // Returns a boolean value indicating if the iterator has a next element 
+        // this prevents an exception from being thrown
         @Override
         public boolean hasNext() {
             if(current != null){
@@ -75,6 +99,7 @@ public class SinglyLinkedList<E> implements Iterable<E>{
             }
         }
 
+        // Returns the next element in the list
         @Override
         public E next() {
             if(current != null){
@@ -87,6 +112,7 @@ public class SinglyLinkedList<E> implements Iterable<E>{
             }
         }
 
+        // removes the element that the iterator last returned
         @Override
         public void remove(){
             decrementSize();
