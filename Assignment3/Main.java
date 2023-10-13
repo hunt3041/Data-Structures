@@ -23,16 +23,41 @@ public class Main {
           if(current == '<'){
             stack.push(current);
           }
-          else if()
+          if(current == '>'){
+            stack.pop();
+          }
+
+          
         }
 
     }
 
-
-
-
-
     
+
+    // Storing by separating tags
+
+    public static void storeTags(char[] textAsArray){
+      int length = textAsArray.length;
+      String tagArray[] = new String[length];
+      int begin, end;
+      for(int i = 0; i < length; i++){
+        if(textAsArray[i] == '<'){
+          begin = i;
+        }
+        else if(textAsArray[i] == '>'){
+          end = i;
+          tagArray = 
+        }
+      }
+    }
+
+    public static String[] getTag(char[] textAsArray, int begin, int end){
+
+      for(begin;  begin <= end; begin++){
+        
+      }
+
+    }
 
 
     public static char[] fileToArray(String filePath)throws Exception{
