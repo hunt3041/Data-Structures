@@ -37,5 +37,5 @@ public class Queue<T> {
     }
 
     // returns the first element in the queue
-    public void getFirst(){this.list.first();}
+    public T getFirst(){return this.list.first();}
 }

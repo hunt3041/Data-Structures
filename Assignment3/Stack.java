@@ -34,7 +34,12 @@ public class Stack<T> {
         // System.out.println("From stack(push): popping: " + element);
         return element;
     }
-        
+    public T getTop(){
+        if(size > 0){
+            return q1.getFirst();
+        }
+        return null;
+    } 
 }
     
 
