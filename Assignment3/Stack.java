@@ -1,3 +1,4 @@
+// Class that implements a stack using the queue class
 public class Stack<T> {
     private int size; 
     private Queue<T> q1 = new Queue<>();
@@ -34,6 +35,8 @@ public class Stack<T> {
         // System.out.println("From stack(push): popping: " + element);
         return element;
     }
+    
+    // return the top element of the stack without popping it
     public T getTop(){
         if(size > 0){
             return q1.getFirst();

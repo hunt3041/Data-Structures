@@ -1,15 +1,16 @@
+/*
+ * Author Name: Hunter Green
+ * Email: hungree@okstate.edu
+ * Date: 10/19/2023
+ * Program Description: Data Structures Assignment3. Implements a .html syntax checker using a stack that is
+ *                                                   implemeented using two queues
+ */
+
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.sql.Array;
 import java.util.ArrayList;
 
-
-// possibly switch to reading it as a string. Think about best way to split it
-// Should I add it to stack immediately?
-// Is the array pointless?
-// Do I need two stacks?
 
 public class Main {
     public static void main(String[] args)throws Exception{
@@ -17,43 +18,44 @@ public class Main {
         String filePath = System.getProperty("user.dir") + "/" + args[0]; 
         ArrayList<String> tagArray = new ArrayList<>();
         Stack<String> stack = new Stack<>();
-        char[] textAsCharArray = fileToArray(filePath);
-        String[] textAsStringArray = fileToStringArray(filePath);
+        char[] textAsCharArray = fileToArray(filePath); // stores the file as a char array
 
-        tagArray = storeTags(textAsCharArray);
-        String tags[] = tagArray.toArray(new String[tagArray.size()]);
+        // stores the file as a string array where each element is a line from the file
+        String[] textAsStringArray = fileToStringArray(filePath); 
+       
         
-        int errorLine1;
-        int errorLine2 = 0;
+        tagArray = storeTags(textAsCharArray); // creates an array list of tags
+        String tags[] = tagArray.toArray(new String[tagArray.size()]); //creates a normal string array from tagArray
         
+        int errorLine1; // initialized for 1st rule check
+        int errorLine2 = 0; // initialized for 2nd rule check
+        
+        // gets the error line of rule 1 check
         errorLine1 = rule1Check(textAsStringArray);
-        stack = rule2Check(tags);
+        stack = rule234Check(tags); // returns the stack from the rule check
 
-
-        for(int i = 0; i < textAsStringArray.length; i ++){
-          if(stack.getTop() != null){
-            if (textAsStringArray[i].contains(stack.getTop())){
-              errorLine2 = i;
-              break;
-            }
-          }
-          
+        // gets the error line if the stack is not empty
+        if(!stack.isEmpty()){
+          errorLine2 = getLineForRule2(textAsStringArray, stack.getTop());
         }
-
+        
+        // prints output if no errors
         if(errorLine1 == 0 && stack.isEmpty()){
           System.out.println("Congratulations...");
           System.out.println("The given HTML file meets all the tag rules..");
         }
         
+        // Prints error information
         else{
           System.out.println("Oops... There is a problem..");
           if(errorLine1 != 0){
             System.out.println("One of the tags on line " + errorLine1 + " is missing a < or >");
+          }
           if(errorLine2 != 0){
-            System.out.println("The " + stack.getTop() + " tag at line # " + errorLine2 + "does not meet the tag rules..");
+            System.out.println("The " + stack.getTop() + " tag at line #" + errorLine2 + " does not meet the tag rules..");
 
           }
-          }
+          
           
         }
          
@@ -61,55 +63,75 @@ public class Main {
     }
 
     
-
-
+    /*
+     * Returns the line that an error occurred
+     * 
+     * @param text: input file with each element corresponding to a line from file
+     * @param top: the top of the stack 
+     * @return errorLine2: the line where the error occurred
+     */
+    public static int getLineForRule2(String[] text, String top){
+      int errorLine2 = 0;
+      for(int i = 0; i < text.length; i ++){
+        if (text[i].contains(top)){
+          // System.out.println(text[i]);
+          errorLine2 = i + 1;
+          return errorLine2;
+        }
+      }
+      return 0;
+    }
+    
+    /*
+     * Checks to make sure all tags are enclosed in <> using a stack
+     * 
+     * @param text: input file with each element corresponding to a line from file
+     * @return lineCount: The first line at which a tag was not enclose in <>
+     */
     public static int rule1Check(String[] text)throws Exception{
       Stack<Character> stack = new Stack<>();
-      boolean open = false; 
-      boolean fail = false;
       int lineCount = 1;
       for(String line : text){
         if(line != null){
-          char[] lineAsChars = new char[line.length()];
-          for(char ch : lineAsChars){
-            if(ch == '<'){
-              if(!open){
+          char charArray[] = line.toCharArray();
+            for(char ch : charArray){
+              if(ch == '<'){
                 stack.push(ch);
-                open = true;
               }
-              fail = true;
-              
             }
-            else if(ch == '>' ){
-              if(open){
+            for(char ch : charArray){
+              if(ch == '>'){
                 stack.pop();
-                open = false;
               }
-              fail = true;
             }
+          if(!stack.isEmpty()){
+            return lineCount;
           }
-        if(fail || !stack.isEmpty()){
-          return lineCount;
+          lineCount += 1;
         }
-        lineCount += 1;
-        }
+
       }
-      
       return 0;
       
     }
 
-    public static Stack<String> rule2Check(String[] tagArray){
+    /*
+     * Checks for rules 2, 3, and 4 using a stack
+     * 
+     * @param tagArray: Array of all the tags in the file
+     * @return stack: The stack used to check the rules. Will be empty if all rules passed
+     */
+    public static Stack<String> rule234Check(String[] tagArray){
       Stack<String> stack = new Stack<>();
       for(String element : tagArray){
         char elementChar[] = element.toCharArray();
         if(!element.contains("/") && elementChar[1] != '!' && !element.equals("<br>") && !element.equals("<hr>")){
           stack.push(element);
-          System.out.println("Pushing: " + element + " endtag: " + getEndTag(element));
+          // System.out.println("Pushing: " + element + " endtag: " + getEndTag(element));
         }
         else if(element.equals(getEndTag(stack.getTop()))){
           String delElement = stack.pop();
-          System.out.println("Popping: " + delElement);
+          // System.out.println("Popping: " + delElement);
         }
       }
       if(stack.isEmpty()){
@@ -121,7 +143,12 @@ public class Main {
 
     }
 
-    
+    /*
+     *  Returns the endtag of a given tag
+     * 
+     * @param tag: the start tag 
+     * @return endTag: the corresponding end tag for the given tag
+     */
     public static String getEndTag(String tag){
       if(tag == null){
         return null;
@@ -159,7 +186,12 @@ public class Main {
     }
     
     
-    // Store all tags
+    /*
+     * Takes the char array of the file and returns an array of all tags
+     * 
+     * @param textAsArray: the input file as a character array
+     * @return tagArray: an array of all tags in the file
+     */
     public static ArrayList<String> storeTags(char[] textAsArray){
       int length = textAsArray.length;
       String tag;
@@ -185,7 +217,14 @@ public class Main {
     
 
 
-    // Gets a specific tag by the indes of '<' and '>''
+    /*
+     * Gets a specific tag by the indes of '<' and '>''
+     * 
+     * @param textAsArray: the input file as a char array
+     * @param begin: the index of the '<'
+     * @paraam end: the index of the '>'
+     * @return tag.toString(): the tag 
+     */
     public static String getTag(char[] textAsArray, int begin, int end){
       StringBuilder tag = new StringBuilder();
       for(int start = begin;  start <= end; start++){
@@ -198,7 +237,12 @@ public class Main {
 
     }
 
-
+    /*
+     * Produces a char array from the input file
+     * 
+     * @param filePath: the file path of the .txt file
+     * @return textFileAsArray: the .txt file as a character array
+     */
     public static char[] fileToArray(String filePath)throws Exception{
     File file = new File(filePath);
     FileReader fr = new FileReader(file);
@@ -218,7 +262,13 @@ public class Main {
     return textFileAsArray;
 
   }
-
+    /*
+     * Produces a string array from the input file
+     * each element in the array represents a line from the file
+     * 
+     * @param filePath: the file path of the .txt file
+     * @return textFileAsArray: the .txt file as a string array
+     */
     public static String[] fileToStringArray(String filePath)throws Exception{
     File file = new File(filePath);
     FileReader fr = new FileReader(file);

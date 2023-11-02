@@ -1,5 +1,5 @@
 
-
+// Class that implements a queue using the doubly-linked list class
 public class Queue<T> {
     private int size; 
     private DoublyLinkedList<T> list = new DoublyLinkedList<>();

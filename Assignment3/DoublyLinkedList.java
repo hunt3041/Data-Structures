@@ -1,5 +1,6 @@
 import java.util.Iterator;
 
+// Class implementing a doubly-linked list
 public class DoublyLinkedList<E> implements Iterable<E>{
     //---------------- nested Node class ----------------
     protected static class Node<E>  {
