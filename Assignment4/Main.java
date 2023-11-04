@@ -5,11 +5,12 @@ import java.io.IOException;
 public class Main {
     public static void main(String[] args){
         String filePath = System.getProperty("user.dir") + "/" + args[0]; 
-        HeapAdaptablePriorityQueue<String, Record> priQueue = new HeapAdaptablePriorityQueue<>();
+        HeapAdaptablePriorityQueue<String, Double, Record> priQueue = new HeapAdaptablePriorityQueue<>();
 
         readTxtFileToQueue(filePath, priQueue);
         for(int i = 0; i < 300; i++){
-            System.out.println(priQueue.removeMin().getValue().getFirstName());
+            Record patient =  priQueue.removeMin().getValue();
+            System.out.println("Name: " + patient.getFirstName() + "  Priority: " + patient.getUnosStatus() + "  Age: " + patient.getAge());
         }
         
         String y = "hello";
@@ -29,8 +30,8 @@ public class Main {
 
 
 
-    public static HeapAdaptablePriorityQueue<String, Record> readTxtFileToQueue(String filePath, 
-                                                            HeapAdaptablePriorityQueue<String, Record> list){
+    public static HeapAdaptablePriorityQueue<String, Double, Record> readTxtFileToQueue(String filePath, 
+                                                            HeapAdaptablePriorityQueue<String, Double, Record> list){
         
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
@@ -44,7 +45,7 @@ public class Main {
                     
                     Record patientRecord = new Record(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8], values[9], values[10], values[11], values[12]);
 
-                    list.insert(patientRecord.getUnosStatus(), patientRecord);
+                    list.insert(patientRecord.getUnosStatus(), patientRecord.getAge(), patientRecord);
 
                     // System.out.println(list.min());
                     // System.out.println(list.min().getValue().getFirstName());
