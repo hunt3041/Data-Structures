@@ -1,3 +1,8 @@
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 public class Record {
     // Variables
     private String firstName;
@@ -13,6 +18,7 @@ public class Record {
     private String dateListed;
     private String unosStatus;
     private String dateOfBirth; 
+    private double age;
 
     //default constructor
     public Record(){}
@@ -32,6 +38,7 @@ public class Record {
         this.dateListed = dateListed;
         this.unosStatus = unosStatus;
         this.dateOfBirth = dateOfBirth;
+        this.age = calculateAge(dateOfBirth);
     }
 
     
@@ -74,8 +81,53 @@ public class Record {
     // Get the patient's DOB
     public String getDateOfBirth(){return this.dateOfBirth;}
 
+    // Get the patient's age
+    public double getAge(){return this.age;}
+
     // Set the UNOS Status
     public void setUnosStatus(String newUnosStatus){
         this.unosStatus = newUnosStatus;
     }
+
+
+    private double calculateAge(String dateOfBirth){
+        try {
+            // Parse the DOB string into a Date object
+            Date dob = dateFormat.parse(dateOfBirth);
+
+            // Get the current date
+            Date currentDate = new Date();
+
+            // Create Calendar objects for DOB and current date
+            Calendar dobCalendar = Calendar.getInstance();
+            dobCalendar.setTime(dob);
+            Calendar currentCalendar = Calendar.getInstance();
+            currentCalendar.setTime(currentDate);
+
+            // Calculate the age in years
+            int years = currentCalendar.get(Calendar.YEAR) - dobCalendar.get(Calendar.YEAR);
+
+            // Calculate the fraction of a year in terms of months
+            int currentMonth = currentCalendar.get(Calendar.MONTH);
+            int dobMonth = dobCalendar.get(Calendar.MONTH);
+            int months = currentMonth - dobMonth;
+
+            if (months < 0) {
+                years--;
+                months = 12 + months;
+            }
+
+            double ageInDecimal = years + (months / 12.0);
+            return ageInDecimal;
+            
+        } catch (ParseException e) {
+            System.err.println("Invalid date format: " + dateOfBirth);
+            return 0;
+        }
+    }
+    // Define the date format for parsing
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+
+        
+
 }
