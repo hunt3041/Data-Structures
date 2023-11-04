@@ -1,8 +1,6 @@
 import java.util.Comparator;
 
-import myPackage.AdaptablePriorityQueue;
-import myPackage.Entry;
-import myPackage.HeapPriorityQueue;
+
 
 // An implementation of an adaptable priority queue using an array-based heap. 
 public class HeapAdaptablePriorityQueue<K,V> extends HeapPriorityQueue<K,V> implements AdaptablePriorityQueue<K,V> {
@@ -18,12 +16,14 @@ public class HeapAdaptablePriorityQueue<K,V> extends HeapPriorityQueue<K,V> impl
         public int getIndex( ) { return index; }
         public void setIndex(int j) { index = j; }
     } //----------- end of nested AdaptablePQEntry class -----------
-
+   
     //Creates an empty adaptable priority queue using natural ordering of keys. 
     public HeapAdaptablePriorityQueue( ) { super( ); }
 
     // Creates an empty adaptable priority queue using the given comparator. 
     public HeapAdaptablePriorityQueue(Comparator<K> comp) { super(comp);}
+
+   
 
     // protected utilites
     // Validates an entry to ensure it is location-aware. ∗/
@@ -88,6 +88,7 @@ public class HeapAdaptablePriorityQueue<K,V> extends HeapPriorityQueue<K,V> impl
         locator.setValue(value); // method inherited from PQEntry
     }
 
+    
     
     // only works for my Record data type
     

@@ -1,4 +1,4 @@
-package myPackage;
+
 
 //Interface for a key-value pair. 
 public interface Entry<K,V> {
