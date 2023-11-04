@@ -27,7 +27,7 @@ public abstract class AbstractPriorityQueue<K,V>implements PriorityQueue<K,V> {
     // instance variable for an AbstractPriorityQueue
     //The comparator defining the ordering of keys in the priority queue. 
     private Comparator<K> comp;
-
+    
     // Creates an empty priority queue using the given comparator to order keys. 
     protected AbstractPriorityQueue(Comparator<K> c) { comp = c; }
 
@@ -35,7 +35,9 @@ public abstract class AbstractPriorityQueue<K,V>implements PriorityQueue<K,V> {
     protected AbstractPriorityQueue( ) { this(new DefaultComparator<K>( )); }
 
     //Method for comparing two entries according to key ∗/
+    //TODO compare the entire entry 
     protected int compare(Entry<K,V> a, Entry<K,V> b) {
+        System.out.println("Running original comparator");
         return comp.compare(a.getKey( ), b.getKey( ));
         }
 

@@ -8,6 +8,14 @@ public class Main {
         HeapAdaptablePriorityQueue<String, Record> priQueue = new HeapAdaptablePriorityQueue<>();
 
         readTxtFileToQueue(filePath, priQueue);
+        for(int i = 0; i < 300; i++){
+            System.out.println(priQueue.removeMin().getValue().getFirstName());
+        }
+        
+        String y = "hello";
+        String x = "ale";
+
+        // System.out.println(x.compareTo(x));
 
      
     
@@ -38,8 +46,8 @@ public class Main {
 
                     list.insert(patientRecord.getUnosStatus(), patientRecord);
 
-                    System.out.println(list.min());
-                    System.out.println(list.min().getValue().getFirstName());
+                    // System.out.println(list.min());
+                    // System.out.println(list.min().getValue().getFirstName());
                 }
                 count += 1;
                 
