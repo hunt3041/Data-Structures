@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.ArrayList;
 
 public class Record {
     // Variables
@@ -22,6 +23,7 @@ public class Record {
     private String unosStatus;
     private String dateOfBirth; 
     private double age;
+   
 
     //default constructor
     public Record(){}

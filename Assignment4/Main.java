@@ -200,6 +200,7 @@ public class Main {
                     else{
                         patientFound = true;
                         value.setDateListed();
+                        value.setUnosStatus(unosStatus);
                         temp.insert(unosStatus, priQueue.min().getKey2(), value);
                         System.out.println("The following patient detail has been updated:");
                         System.out.println("Patient's first name: " + value.getFirstName());
@@ -214,7 +215,7 @@ public class Main {
                         System.out.println("Phone Number (1st Preference): " + value.getPhone2());
                         System.out.println("Email address: " + value.getEmail());
                         System.out.println("UNOS Status: " + value.getUnosStatus());
-                        System.out.println("Date listed on " + unosStatus + ": " + value.getDateListed());
+                        System.out.println("Date listed on " + value.getUnosStatus() + ": " + value.getDateListed());
                     }
                     priQueue.removeMin();
                  }
