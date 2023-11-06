@@ -1,6 +1,8 @@
 package mypackage;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -90,6 +92,21 @@ public class Record {
         this.unosStatus = newUnosStatus;
     }
 
+    // Set the date listed
+    public void setDateListed(){
+        LocalDate currentDate = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+        String formattedDate = currentDate.format(formatter);
+        System.out.println("date: " + formattedDate);
+        this.dateListed = formattedDate;
+    }
+
+    /*
+     * Calculates the age of the patient
+     * 
+     * @param dateOfBirth: the date of birth of the patient
+     * @return ageInDecimal: the age of the person
+     */
 
     private double calculateAge(String dateOfBirth){
         try {

@@ -115,27 +115,28 @@ public class Main {
                  unosStatus = scan2 .nextLine();
                  
                  HeapAdaptablePriorityQueue<String, Double, Record> temp = new HeapAdaptablePriorityQueue<>();
-                 temp = readTxtFileToQueue(filePath, temp);
                 boolean patientFound = false;
-                 while(temp.size() > 0){
-                    Record check = new Record();
-                    check = temp.min().getValue();
-                    
+                while(priQueue.size() > 0){
+                    Record value = new Record();
+                    value = priQueue.min().getValue();
 
-                    if(check.getFirstName().equalsIgnoreCase(firstName) && check.getLastName().equalsIgnoreCase(lastName)){
-                        priQueue.remove(temp.min());
+                    if(!value.getFirstName().equalsIgnoreCase(firstName) && !value.getLastName().equalsIgnoreCase(lastName)){
+                        temp.insert(priQueue.min().getKey1(), priQueue.min().getKey2(), value);
+                    }
+                    else{
                         patientFound = true;
-                        System.out.println("\nThe requested patient's record has been removed from the queue.");
-                        break;
                     }
-                    else {
-                        temp.removeMin();
-                    }
-                    
-                 }
-                 if(!patientFound){
+                    priQueue.removeMin();
+
+                }
+                priQueue = temp;
+
+                if(!patientFound){
                     System.out.println("Patient not found.");
-                 }
+                }
+                else{
+                    System.out.println("Patient removed successfully!");
+                }
 
             }
 
@@ -188,42 +189,40 @@ public class Main {
                  unosStatus = scan3.nextLine();
                  
                  HeapAdaptablePriorityQueue<String, Double, Record> temp = new HeapAdaptablePriorityQueue<>();
-                 temp = readTxtFileToQueue(filePath, temp);
                 boolean patientFound = false;
-                 while(temp.size() > 0){
-                    Record check = new Record();
-                    check = temp.min().getValue();
+                 while(priQueue.size() > 0){
+                    Record value = new Record();
+                    value = priQueue.min().getValue();
                     
-
-                    if(check.getFirstName().equalsIgnoreCase(firstName) && check.getLastName().equalsIgnoreCase(lastName)){
-                        priQueue.remove(temp.min());
-                        priQueue.insert(unosStatus, check.getAge(), check);
+                    if(!value.getFirstName().equalsIgnoreCase(firstName) && !value.getLastName().equalsIgnoreCase(lastName)){
+                        temp.insert(priQueue.min().getKey1(), priQueue.min().getKey2(),value);
+                    }
+                    else{
                         patientFound = true;
-                        System.out.println("The following patient detail has been updated: ");
-                        System.out.println("Patient's first name: " + check.getFirstName());
-                        System.out.println("Patient's last name: " + check.getLastName());
-                        System.out.println("Date of birth of patient: " + check.getDateOfBirth());
-                        System.out.println("Address: " + check.getAddress());
-                        System.out.println("City: " + check.getCity());
-                        System.out.println("County: " + check.getCounty());
-                        System.out.println("State: " + check.getState());
-                        System.out.println("Zip code: " + check.getZip());
-                        System.out.println("Phone Number (1st Preference): " + check.getPhone1());
-                        System.out.println("Phone Number (2nd Preference): " + check.getPhone2());
-                        System.out.println("Email address: " + check.getEmail());
-                        System.out.println("UNOS Status: " + check.getUnosStatus());
-                        System.out.println("Date listed on " + unosStatus + ": " + check.getDateListed());
-                        break;
+                        value.setDateListed();
+                        temp.insert(unosStatus, priQueue.min().getKey2(), value);
+                        System.out.println("The following patient detail has been updated:");
+                        System.out.println("Patient's first name: " + value.getFirstName());
+                        System.out.println("Patient's last name:" + value.getLastName());
+                        System.out.println("Date of birth of the patient: " + value.getDateOfBirth());
+                        System.out.println("Address: " + value.getAddress());
+                        System.out.println("City: " + value.getCity());
+                        System.out.println("County: " + value.getCounty());
+                        System.out.println("State: " + value.getState());
+                        System.out.println("Zip code: " + value.getZip());
+                        System.out.println("Phone Number (1st Preference): " + value.getPhone1());
+                        System.out.println("Phone Number (1st Preference): " + value.getPhone2());
+                        System.out.println("Email address: " + value.getEmail());
+                        System.out.println("UNOS Status: " + value.getUnosStatus());
+                        System.out.println("Date listed on " + unosStatus + ": " + value.getDateListed());
                     }
-                    else {
-                        temp.removeMin();
-                    }
-                    
+                    priQueue.removeMin();
                  }
+                 priQueue = temp;
                  if(!patientFound){
                     System.out.println("Patient not found.");
                  }
-
+                
             }
             // 7. exit
             else if(userIn == 7){
@@ -246,7 +245,7 @@ public class Main {
 
 
     
-
+    // Prints the option menu
     public static void printMenu(){
         System.out.println("1.  insert");
         System.out.println("2.  peek");
@@ -258,6 +257,14 @@ public class Main {
     }
 
 
+
+     /*
+     * Reads the given input text file into a priority queue
+     * 
+     * @param filePath: The file path of the input file
+     * @param list: the priority queue that the input file is being read into 
+     * @return list: the updated list 
+     */
     public static HeapAdaptablePriorityQueue<String, Double, Record> readTxtFileToQueue(String filePath, 
                                                             HeapAdaptablePriorityQueue<String, Double, Record> list){
         
