@@ -1,3 +1,4 @@
+package mypackage;
 
 
 //Interface for a key-value pair. 

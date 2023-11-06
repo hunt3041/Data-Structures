@@ -1,4 +1,4 @@
-
+package mypackage;
 public interface PriorityQueue<K1,K2,V> {
     int size( );
     boolean isEmpty( );
