@@ -23,6 +23,7 @@ public class Record {
     private String unosStatus;
     private String dateOfBirth; 
     private double age;
+    private ArrayList<String> unosHistory = new ArrayList<>();
    
 
     //default constructor
@@ -44,6 +45,7 @@ public class Record {
         this.unosStatus = unosStatus;
         this.dateOfBirth = dateOfBirth;
         this.age = calculateAge(dateOfBirth);
+        this.unosHistory.add("On " + this.dateListed + ", UNOS_status changed to " + this.unosStatus);
     }
 
     
@@ -89,9 +91,21 @@ public class Record {
     // Get the patient's age
     public double getAge(){return this.age;}
 
+    // Returns the history arrayList
+    public ArrayList<String> getUnosHistory(){return this.unosHistory;}
+
+    // Prints the unosHistory
+    public void printUnosHistory(){
+        System.out.println("\nUNOS status history of patient:");
+        for(int i = 0; i < this.unosHistory.size(); i++){
+            System.out.println(this.unosHistory.get(i));
+        }
+    }
+
     // Set the UNOS Status
     public void setUnosStatus(String newUnosStatus){
         this.unosStatus = newUnosStatus;
+        this.unosHistory.add("On " + this.dateListed + ", UNOS_status changed to " + this.unosStatus);
     }
 
     // Set the date listed

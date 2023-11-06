@@ -14,3 +14,10 @@ How to run program:
     - Where inputFileName is the .txt file that you want to run
 
 6. The output should be displayed. 
+
+
+
+
+Bonus: 
+
+For part B of the bonus, the UNOS status history of the patient is printed at the bottom of the patient information. 

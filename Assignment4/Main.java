@@ -50,7 +50,7 @@ public class Main {
                 System.out.println("Email address: " + min.getEmail());
                 System.out.println("UNOS Status: " + min.getUnosStatus());
                 System.out.println("Date listed on " + min.getUnosStatus() + ": " + min.getDateListed()); 
-                
+                min.printUnosHistory();
             }
 
             // 3. nextPatient
@@ -70,6 +70,7 @@ public class Main {
                 System.out.println("Email address: " + min.getEmail());
                 System.out.println("UNOS Status: " + min.getUnosStatus());
                 System.out.println("Date listed on " + min.getUnosStatus() + ": " + min.getDateListed()); 
+                min.printUnosHistory();
             }
 
             // 4. removePaient
@@ -216,6 +217,7 @@ public class Main {
                         System.out.println("Email address: " + value.getEmail());
                         System.out.println("UNOS Status: " + value.getUnosStatus());
                         System.out.println("Date listed on " + value.getUnosStatus() + ": " + value.getDateListed());
+                        value.printUnosHistory();
                     }
                     priQueue.removeMin();
                  }
