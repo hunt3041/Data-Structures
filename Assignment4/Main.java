@@ -1,4 +1,5 @@
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
@@ -28,7 +29,7 @@ public class Main {
                 String fileName = scan.next();
                 String path = System.getProperty("user.dir") + "/" + fileName; 
                 priQueue = readTxtFileToQueue(path, priQueue);
-                System.out.println("Input file is read successfully");
+                
                 
                 
                 
@@ -285,16 +286,16 @@ public class Main {
 
                     list.insert(patientRecord.getUnosStatus(), patientRecord.getAge(), patientRecord);
 
-                    // System.out.println(list.min());
-                    // System.out.println(list.min().getValue().getFirstName());
+                    
                 }
                 
                 
             }
-
-
-        } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Input file is read successfully");
+        } 
+        
+        catch (IOException e) {
+           System.out.println("File not found.");
         }
     return list;
     }
