@@ -93,7 +93,25 @@ public class Main {
             if(userIn == 3){
                 Iterable<Vertex<StudentInfo>> vertexIterable = graph.vertices();
                 System.out.println("Enter the ID of the of the student.");
-                  n nb
+                String id = scan.next();
+                Vertex<StudentInfo> student = null;
+                int degree = 0;
+                ArrayList<String> friendsList = new ArrayList<>();
+                for(Vertex<StudentInfo> vertex : vertexIterable){
+                    if(vertex.getElement().getID().equals(id)){
+                        student = vertex;
+                        degree = graph.outDegree(student);
+                    }
+                }
+                Iterable<Edge<Integer>> edgesIterable = graph.outgoingEdges(student);
+                for(Edge<Integer> edge : edgesIterable){
+                    friendsList.add(graph.opposite(student, edge).getElement().getFirstName());
+                }
+                System.out.println("Student has " + degree + " friends.");
+                System.out.println("Friends of " + student.getElement().getFirstName() + " are:");
+                for(String friend : friendsList){
+                    System.out.println(friend);
+                }
                 
             }
         }
