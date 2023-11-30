@@ -119,7 +119,7 @@ public class Main {
     }
 
     
-      
+    // Reads the text file into the adjacency map graph
      public static AdjacencyMapGraph<StudentInfo, Integer> readFileToGraph(String filePath){
         AdjacencyMapGraph<StudentInfo, Integer> graph = new AdjacencyMapGraph<>(false);
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
@@ -173,6 +173,29 @@ public class Main {
     return graph;
     }
 
+    // BFS search algorithm UNTESTED
+    public static void BFS(AdjacencyMapGraph<StudentInfo, Integer> graph, Vertex<StudentInfo> vertex){
+        Queue<Vertex<StudentInfo>> q = new Queue<>();
+        ArrayList<Vertex<StudentInfo>> visited = new ArrayList<>();
+        visited.add(vertex);
+        q.enqueue(vertex);
+        Vertex<StudentInfo> currentVert = null;
+        while(!q.isEmpty()){
+            currentVert = q.dequeue();
+            ArrayList<Vertex<StudentInfo>> adjacentVerts = new ArrayList<>();
+            for(Edge<Integer> edge : graph.outgoingEdges(currentVert)){
+                adjacentVerts.add(graph.opposite(currentVert, edge));
+            }
+            for(Vertex<StudentInfo> vert : adjacentVerts){
+                visited.add(vert);
+                q.enqueue(currentVert);
+            }
+
+        
+        }
+    }
+    
+    // Prints the menu 
     public static void printMenu(){
         System.out.println("1. Remove friendship");
         System.out.println("2. Delete Account");
