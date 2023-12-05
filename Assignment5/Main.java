@@ -286,7 +286,7 @@ public class Main {
 
     }
     
-    // Computes shortest-path distances from src vertex to all reachable vertices of g. ∗/
+    // Computes shortest-path distances from src vertex to all reachable vertices of g. Using Dijkstra's Algorithm
     public static Map<Vertex<StudentInfo>, Integer> shortestPathLengths(Graph<StudentInfo,Integer> g, Vertex<StudentInfo> src) {
         // d.get(v) is upper bound on distance from src to v
         Map<Vertex<StudentInfo>, Integer> d = new ProbeHashMap<>( );
